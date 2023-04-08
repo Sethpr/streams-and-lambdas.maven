@@ -43,7 +43,7 @@ public final class PersonWarehouse implements Iterable<Person> {
      * @return list of uniquely named Person objects
      */ //TODO
     public Stream<Person> getUniquelyNamedPeople() {
-        return people.stream().distinct();
+        return people.stream().map(Wrapper::new).distinct().map(Wrapper::unwrap);
     }
 
 
@@ -104,5 +104,23 @@ public final class PersonWarehouse implements Iterable<Person> {
     @Override // DO NOT MODIFY
     public Iterator<Person> iterator() {
         return people.iterator();
+    }
+
+    //favorite answer from https://stackoverflow.com/questions/23699371/java-8-distinct-by-property
+    class Wrapper{ //it seemed like the best way to do it to me :)
+        private final Person p;
+        public Wrapper(Person p){
+            this.p = p;
+        }
+
+        //@Override
+        public boolean equals(Person p){
+            return this.p.getName().equals(p.getName());
+        }
+
+
+        public Person unwrap(){
+            return p;
+        }
     }
 }
