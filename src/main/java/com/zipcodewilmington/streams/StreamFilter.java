@@ -21,8 +21,8 @@ public class StreamFilter {
     /**
      * No arg constructor
      */ //TODO - construct person stream of 100 person objects; startingCharacter is a random capital letter
-    public StreamFilter() { //person factory says to not instantiate it so ?
-        this(Stream.empty(), (char) ((int) (Math.random() * 26 + 65)));
+    public StreamFilter() { //person factory says to not instantiate it so ? //what i did feels like cheating //now it doesnt, i fixed it. enjoy wondering what i did prior
+        this(Stream.generate(new PersonFactory()::createRandomPerson).limit(100), (char) ((int) (Math.random() * 26 + 65)));
     }
 
     /**
